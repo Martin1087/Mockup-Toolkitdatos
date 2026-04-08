@@ -348,7 +348,7 @@
     <div class="hero-stats">
       <div class="stat"><span class="stat-n">5<sup>+</sup></span><span class="stat-l">Herramientas activas</span></div>
       <div class="stat"><span class="stat-n">97<sup>%</sup></span><span class="stat-l">Precisión clasificador</span></div>
-      <div class="stat"><span class="stat-n">v8<sup>.67</sup></span><span class="stat-l">Versión del Validador</span></div>
+      <div class="stat"><span class="stat-n">v8.<sup>.78</sup></span><span class="stat-l">Versión del Validador</span></div>
       <div class="stat"><span class="stat-n">6</span><span class="stat-l">Dimensiones ISO 8000</span></div>
     </div>
   </section>
@@ -369,7 +369,7 @@
           <span class="pill">Producción</span>
         </div>
         <div class="card-title">Validador de Calidad de Datos</div>
-        <div class="card-sub">Motor de validación semántica y sintáctica · v8.67.6</div>
+        <div class="card-sub">Motor de validación semántica y sintáctica · v1</div>
         <p class="card-desc">Detecta, reporta y corrige errores estructurales en datasets CSV/XLS/XLSX. Alineado al Diccionario de Datos y Lineamientos de Gobernanza del GCBA.</p>
         <ul class="feats">
           <li><span class="fck"><i class="fas fa-check"></i></span>Validación contra diccionario de datos institucional</li>
@@ -381,7 +381,7 @@
         </ul>
       </div>
       <div class="card-foot">
-        <div class="tags"><span class="tag">Python 3.11</span><span class="tag">FastAPI</span><span class="tag">Pandas</span><span class="tag">Pydantic v2</span></div>
+        <div class="tags"><span class="tag">Python +3.11</span><span class="tag">FastAPI</span><span class="tag">Pandas</span><span class="tag">Pydantic v2</span></div>
         <a href="#arquitectura" class="clink">Stack <i class="fas fa-arrow-right" style="font-size:9px;"></i></a>
       </div>
     </div>
@@ -430,7 +430,7 @@
         </ul>
       </div>
       <div class="card-foot">
-        <div class="tags"><span class="tag">Python 3.12</span><span class="tag">PyTorch</span><span class="tag">CLIP</span><span class="tag">SentenceTransformers</span></div>
+        <div class="tags"><span class="tag">Python +3.12</span><span class="tag">PyTorch</span><span class="tag">CLIP</span><span class="tag">SentenceTransformers</span></div>
       </div>
     </div>
 
@@ -454,7 +454,7 @@
         </ul>
       </div>
       <div class="card-foot">
-        <div class="tags"><span class="tag">Python 3.12</span><span class="tag">doctr OCR</span><span class="tag">RapidFuzz</span><span class="tag">pdf2image</span></div>
+        <div class="tags"><span class="tag">Python +3.12</span><span class="tag">doctr OCR</span><span class="tag">RapidFuzz</span><span class="tag">pdf2image</span></div>
       </div>
     </div>
 
@@ -487,7 +487,7 @@
 
 <!-- VALIDACIONES -->
 <div class="wrap sec" id="validaciones">
-  <div class="sec-label">Motor de validación · Validador v8.67.6</div>
+  <div class="sec-label">Motor de validación · Validador v****</div>
   <div class="sec-title">6 dimensiones de calidad ISO 8000</div>
   <div class="val-grid">
     <div class="val-card">
@@ -525,7 +525,7 @@
 
 <!-- ARQUITECTURA -->
 <div class="wrap sec" id="arquitectura">
-  <div class="sec-label">Detalle técnico · Validador v8.67.6</div>
+  <div class="sec-label">Detalle técnico · Validador v****</div>
   <div class="sec-title">Arquitectura del sistema</div>
   <div class="arq-grid">
     <div class="arq-card">
@@ -586,7 +586,7 @@
 
 <script>
 const cat = {
-  validador: { tags:['validar','calidad','dataset','csv','xlsx','badata','error','columna','diccionario','formato','duplicado','nulo','vacio','sql','score'], resp:'El <strong>Validador de Calidad de Datos (v8.67.6)</strong> es lo que necesitás. Valida estructura, completitud, formato, IDs únicos y correctitud contra el diccionario institucional del GCBA. Genera dataset corregido, informe HTML/PDF y script SQL.' },
+  validador: { tags:['validar','calidad','dataset','csv','xlsx','badata','error','columna','diccionario','formato','duplicado','nulo','vacio','sql','score'], resp:'El <strong>Validador de Calidad de Datos (v1.6)</strong> es lo que necesitás. Valida estructura, completitud, formato, IDs únicos y correctitud contra el diccionario institucional del GCBA. Genera dataset corregido, informe HTML/PDF y script SQL.' },
   anonimizador: { tags:['anonimizar','anonimizacion','sensible','privacidad','proteger','personal','enmascarar','pseudon','hash'], resp:'El <strong>Anonimizador</strong> está en producción con 8 técnicas: enmascaramiento, pseudonimización, hash anónimo, supresión, agrupamiento, generalización geográfica y perturbación. Disponible vía API Flask e interfaz web HTML.' },
   clasificador: { tags:['clasificar','expediente','tipo','documento','categoriz','nlp','abl','escritura','rpi','contrato','formulario','adjunto'], resp:'El <strong>Clasificador de Expedientes</strong> usa embeddings textuales y visuales (CLIP ViT-H-14) para identificar tipos de documentos con 97% de precisión. Cubre ABL, contratos, escrituras, formulario ARCA 931 y RPI.' },
   comparador: { tags:['comparar','comparacion','coincidencia','diferencia','campo','propietario','extraer','rpi','similitud','plano'], resp:'El <strong>Comparador de Documentos</strong> extrae campos clave y calcula su % de coincidencia con OCR ML + RapidFuzz. 98% de precisión en pruebas. Compara RPI vs documentos generados y adjuntos.' },
