@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Paquete de Datos · GOAMV</title>
+<title>GOAMV · Lineamientos de Calidad de Datos</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
@@ -16,6 +16,8 @@
     --border: rgba(26,86,219,0.1);
     --text: #111827;
     --muted: #6b7280;
+    --gray-disabled: #9ca3af;
+    --bg-disabled: #f3f4f6;
     --r: 16px;
     --r-sm: 10px;
     --sh: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
@@ -53,21 +55,9 @@
   .nav-brand-text { font-size: 13px; font-weight: 700; color: var(--azul-dark); display: block; }
   .nav-brand-sub  { font-size: 10.5px; color: var(--muted); font-weight: 400; display: block; line-height: 1.2; }
   .nav-links { display: flex; gap: 26px; list-style: none; }
-  .nav-links a { font-size: 13px; font-weight: 500; color: var(--muted); text-decoration: none; transition: color .15s; }
+  .nav-links a { font-size: 13px; font-weight: 500; color: var(--muted); text-decoration: none; transition: color .15s; cursor: pointer; }
   .nav-links a:hover { color: var(--azul); }
-  .live-badge {
-    display: flex; align-items: center; gap: 7px;
-    font-size: 11px; font-weight: 700; color: #065f46;
-    background: #d1fae5; padding: 4px 12px; border-radius: 20px;
-  }
-  .dot-live {
-    width: 6px; height: 6px; border-radius: 50%; background: #22c55e;
-    animation: blink 2s infinite;
-  }
-  @keyframes blink {
-    0%,100% { opacity:1; } 50% { opacity:.4; }
-  }
-
+  .nav-links a.active { color: var(--azul); font-weight: 600; border-bottom: 2px solid var(--azul); padding-bottom: 4px; }
   .wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
 
   /* HERO */
@@ -92,17 +82,11 @@
     font-size: 14.5px; color: var(--muted);
     line-height: 1.7; max-width: 540px; margin-bottom: 32px;
   }
-  .hero-stats { display: flex; flex-wrap: wrap; gap: 36px; }
-  .stat { display: flex; flex-direction: column; gap: 2px; }
-  .stat-n {
-    font-family: 'Fraunces', serif;
-    font-size: 1.9rem; font-weight: 600;
-    color: var(--azul-dark); line-height: 1;
-  }
-  .stat-n sup { font-size: .85rem; color: var(--teal); font-family: 'Plus Jakarta Sans', sans-serif; }
-  .stat-l { font-size: 11px; color: var(--muted); font-weight: 500; }
 
-  /* SECTION HEADER */
+  /* SECCIONES PANTALLA */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
   .sec { padding: 0 0 56px; }
   .sec-label { font-size: 10.5px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
   .sec-title {
@@ -127,13 +111,21 @@
     overflow: hidden;
   }
   .card:hover { transform: translateY(-4px); box-shadow: var(--sh-h); }
-
+  .card.disabled {
+    opacity: 0.75;
+    background: var(--bg-disabled);
+    filter: grayscale(0.05);
+    border-color: #e5e7eb;
+  }
+  .card.disabled .card-icon, .card.disabled .card-stripe { filter: grayscale(0.4); background: #9ca3af; }
+  .card.disabled .pill { background: #e5e7eb; color: #6b7280; }
   .card-stripe { height: 3px; }
   .s-azul    { background: var(--azul); }
   .s-teal    { background: #0d9488; }
   .s-violeta { background: #7c3aed; }
   .s-naranja { background: #ea580c; }
   .s-rojo    { background: #dc2626; }
+  .disabled-stripe { background: #9ca3af !important; }
 
   .card-body { padding: 18px 20px; flex: 1; }
   .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
@@ -154,153 +146,50 @@
     background: #d1fae5; color: #065f46;
     flex-shrink: 0;
   }
+  .pill-off { background: #e5e7eb; color: #4b5563; }
 
   .card-title { font-size: 14px; font-weight: 700; color: var(--azul-dark); margin-bottom: 2px; }
   .card-sub   { font-size: 11px; color: var(--muted); font-weight: 500; margin-bottom: 10px; }
   .card-desc  { font-size: 13px; color: #374151; line-height: 1.6; margin-bottom: 12px; }
 
-  .feats { list-style: none; display: flex; flex-direction: column; gap: 5px; }
-  .feats li { display: flex; align-items: flex-start; gap: 7px; font-size: 12px; color: #4b5563; line-height: 1.4; }
-  .fck {
-    width: 15px; height: 15px; border-radius: 4px; flex-shrink: 0;
-    background: #d1fae5; color: #065f46;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 8px; margin-top: 1px;
-  }
-
-  .card-foot {
-    padding: 10px 20px 14px;
-    border-top: 1px solid rgba(0,0,0,0.05);
-    display: flex; align-items: center;
-    justify-content: space-between; gap: 8px; flex-wrap: wrap;
-  }
-  .tags { display: flex; gap: 4px; flex-wrap: wrap; }
-  .tag {
-    font-size: 10px; font-weight: 600;
-    background: rgba(26,86,219,0.07);
-    color: var(--azul);
-    border: 1px solid rgba(26,86,219,0.13);
-    padding: 2px 7px; border-radius: 10px;
-  }
-  .clink {
-    font-size: 12px; font-weight: 600; color: var(--azul);
-    text-decoration: none; display: flex; align-items: center; gap: 4px;
-    white-space: nowrap; transition: gap .15s;
-  }
-  .clink:hover { gap: 7px; }
-
-  /* VALIDACIONES */
-  .val-grid {
+  /* DIMENSIONES CALIDAD */
+  .dim-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-    gap: 13px;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 20px;
   }
-  .val-card {
-    background: white; border-radius: var(--r-sm);
-    border: 1px solid var(--border);
-    padding: 15px; box-shadow: var(--sh);
-    transition: transform .18s;
-  }
-  .val-card:hover { transform: translateY(-2px); }
-  .val-ic {
-    width: 32px; height: 32px; border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 14px; margin-bottom: 9px;
-  }
-  .val-card h5 { font-size: 12.5px; font-weight: 700; color: var(--azul-dark); margin-bottom: 4px; }
-  .val-card p  { font-size: 11px; color: var(--muted); line-height: 1.5; }
-
-  /* ARQUITECTURA */
-  .arq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  @media (max-width: 700px) { .arq-grid { grid-template-columns: 1fr; } }
-  .arq-card {
+  .dim-card {
     background: white; border-radius: var(--r);
-    border: 1px solid var(--border); padding: 20px; box-shadow: var(--sh);
+    border: 1px solid var(--border);
+    padding: 18px; box-shadow: var(--sh);
+    transition: all 0.2s;
   }
-  .arq-card h4 {
-    font-size: 13px; font-weight: 700; color: var(--azul-dark);
-    margin-bottom: 13px; display: flex; align-items: center; gap: 6px;
+  .dim-card:hover { transform: translateY(-3px); box-shadow: var(--sh-h); }
+  .dim-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 12px; border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding-bottom: 10px;
   }
-  .layer {
-    border-radius: 8px; padding: 9px 12px;
-    font-size: 12px; display: flex; align-items: center;
-    gap: 9px; margin-bottom: 6px; font-weight: 500;
-  }
-  .l1 { background: #eff6ff; color: #1e3a8a; }
-  .l2 { background: #f0fdf4; color: #14532d; }
-  .l3 { background: #f5f3ff; color: #3b0764; }
-  .l4 { background: #fffbeb; color: #78350f; }
-  .l5 { background: #fff1f2; color: #881337; }
-  .layer small { font-weight: 400; font-size: 10.5px; display: block; margin-top: 1px; }
-
-  .dtbl { width: 100%; border-collapse: collapse; font-size: 12px; }
-  .dtbl th { text-align: left; padding: 5px 8px; color: var(--muted); font-size: 10.5px; font-weight: 600; border-bottom: 1px solid var(--border); }
-  .dtbl td { padding: 6px 8px; border-bottom: 1px solid rgba(0,0,0,0.04); color: #374151; }
-  .dtbl td:first-child { font-weight: 700; color: var(--azul-dark); }
-  .ver { font-size: 10px; background: rgba(26,86,219,0.08); color: var(--azul); padding: 1px 6px; border-radius: 9px; font-weight: 600; }
-
-  /* AGENTE */
-  .ag-wrap {
-    background: var(--azul-dark); border-radius: 18px;
-    padding: 26px; position: relative; overflow: hidden;
-  }
-  .ag-wrap::after {
-    content: ''; position: absolute; bottom: -50px; right: -50px;
-    width: 220px; height: 220px;
-    background: rgba(255,255,255,0.03); border-radius: 50%;
-  }
-  .ag-head { display: flex; align-items: center; gap: 13px; margin-bottom: 16px; position: relative; z-index: 1; }
-  .ag-ava {
-    width: 44px; height: 44px; border-radius: 13px;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.14);
+  .dim-num {
+    font-family: 'Fraunces', serif;
+    font-weight: 700; font-size: 1.2rem;
+    background: var(--azul); color: white;
+    width: 34px; height: 34px; border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 19px; color: white; flex-shrink: 0;
   }
-  .ag-name { font-size: 14px; font-weight: 600; color: white; }
-  .ag-sub  { font-size: 11px; color: rgba(255,255,255,.5); margin-top: 1px; }
-  .chat-area {
-    background: rgba(255,255,255,.06);
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 13px; padding: 13px 15px;
-    max-height: 230px; overflow-y: auto;
-    margin-bottom: 12px; position: relative; z-index: 1;
-    scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.15) transparent;
+  .dim-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--azul-dark); }
+  .dim-card p { font-size: 12.5px; color: #4b5563; margin-bottom: 10px; line-height: 1.6; }
+  .dim-example {
+    background: #f9fafb; border-radius: 10px; padding: 8px 12px;
+    font-size: 11px; color: var(--muted); border-left: 3px solid var(--teal);
+    margin-top: 8px;
   }
-  .mi, .mu { display: flex; margin-bottom: 9px; align-items: flex-start; gap: 7px; }
-  .mi .b {
-    background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.12);
-    border-radius: 11px 11px 11px 3px; padding: 8px 12px;
-    font-size: 12.5px; color: rgba(255,255,255,.9); max-width: 84%; line-height: 1.55;
-  }
-  .mu { justify-content: flex-end; }
-  .mu .b {
-    background: rgba(13,148,136,.28); border: 1px solid rgba(13,148,136,.4);
-    border-radius: 11px 11px 3px 11px; padding: 8px 12px;
-    font-size: 12.5px; color: rgba(255,255,255,.95); max-width: 84%; line-height: 1.55;
-  }
-  .chat-row { display: flex; gap: 9px; position: relative; z-index: 1; }
-  .chat-row input {
-    flex: 1; background: rgba(255,255,255,.07);
-    border: 1px solid rgba(255,255,255,.11);
-    border-radius: 40px; padding: 10px 17px;
-    color: white; font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 13px; outline: none; transition: border-color .15s;
-  }
-  .chat-row input::placeholder { color: rgba(255,255,255,.33); }
-  .chat-row input:focus { border-color: rgba(13,148,136,.5); }
-  .chat-btn {
-    background: #0d9488; border: none; border-radius: 40px;
-    padding: 0 18px; color: white;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 12.5px; font-weight: 600;
-    cursor: pointer; display: flex; align-items: center; gap: 6px;
-    transition: background .15s; white-space: nowrap;
-  }
-  .chat-btn:hover { background: #0f766e; }
+  .dim-example strong { color: var(--azul-dark); }
 
-  /* FOOTER */
-  footer { background: var(--azul-dark); color: rgba(255,255,255,.45); padding: 26px 0; margin-top: 20px; }
+  footer {
+    background: var(--azul-dark); color: rgba(255,255,255,.45);
+    padding: 26px 0; margin-top: 40px;
+  }
   .foot-inner {
     max-width: 1160px; margin: 0 auto; padding: 0 24px;
     display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
@@ -310,10 +199,9 @@
 
   @media (max-width: 640px) {
     .hero { padding: 40px 0 36px; }
-    .hero-stats { gap: 20px; }
-    .nav-links { display: none; }
+    .nav-links { gap: 16px; }
     .grid { grid-template-columns: 1fr; }
-    .val-grid { grid-template-columns: 1fr 1fr; }
+    .dim-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -321,7 +209,7 @@
 
 <nav>
   <div class="nav-inner">
-    <a href="#" class="nav-brand">
+    <a href="#" class="nav-brand" id="homeLinkNav">
       <div class="nav-logo-box"><i class="fas fa-database"></i></div>
       <div>
         <span class="nav-brand-text">GOAMV · Toolkit de Datos</span>
@@ -329,277 +217,218 @@
       </div>
     </a>
     <ul class="nav-links">
-      <li><a href="#productos">Productos</a></li>
-      <li><a href="#validaciones">Validaciones</a></li>
-      <li><a href="#arquitectura">Arquitectura</a></li>
-      <li><a href="#asistente">Asistente IA</a></li>
+      <li><a class="nav-tab" data-screen="productos">Productos</a></li>
+      <li><a class="nav-tab" data-screen="lineamientos">Lineamientos de Calidad</a></li>
+      <li><a class="nav-tab" data-screen="diccionario">Diccionario de Datos</a></li>
     </ul>
-    <div class="live-badge"><div class="dot-live"></div> Operativo</div>
   </div>
 </nav>
 
-<div class="wrap">
-  <section class="hero">
-    <div class="eyebrow"><i class="fas fa-cubes" style="font-size:9px;"></i> Ecosistema de datos institucionales · GCBA</div>
-    <h1>Toolkit de Datos<br><em>Inteligente</em></h1>
-    <p class="hero-desc">
-      Herramientas de calidad, anonimización, clasificación, comparación y análisis de expedientes. Desarrolladas por GOAMV para la gobernanza efectiva de la información del GCBA.
-    </p>
-    <div class="hero-stats">
-      <div class="stat"><span class="stat-n">5<sup>+</sup></span><span class="stat-l">Herramientas activas</span></div>
-      <div class="stat"><span class="stat-n">97<sup>%</sup></span><span class="stat-l">Precisión clasificador</span></div>
-      <div class="stat"><span class="stat-n">v8<sup>.78</sup></span><span class="stat-l">Versión del Validador</span></div>
-      <div class="stat"><span class="stat-n">6</span><span class="stat-l">Dimensiones ISO 8000</span></div>
-    </div>
-  </section>
-</div>
-
-<!-- PRODUCTOS -->
-<div class="wrap sec" id="productos">
-  <div class="sec-label">Catálogo de herramientas</div>
-  <div class="sec-title">Productos disponibles</div>
-  <div class="grid">
-
-    <!-- VALIDADOR -->
-    <div class="card">
-      <div class="card-stripe s-azul"></div>
-      <div class="card-body">
-        <div class="card-top">
-          <div class="card-icon i-azul"><i class="fas fa-check-double"></i></div>
-          <span class="pill">Producción</span>
-        </div>
-        <div class="card-title">Validador de Calidad de Datos</div>
-        <div class="card-sub">Motor de validación semántica y sintáctica · v1</div>
-        <p class="card-desc">Detecta, reporta y corrige errores estructurales en datasets CSV/XLS/XLSX. Alineado al Diccionario de Datos y Lineamientos de Gobernanza del GCBA.</p>
-        <ul class="feats">
-          <li><span class="fck"><i class="fas fa-check"></i></span>Validación contra diccionario de datos institucional</li>
-          <li><span class="fck"><i class="fas fa-check"></i></span>Corrección automática y dataset de salida corregido</li>
-          <li><span class="fck"><i class="fas fa-check"></i></span>Informes HTML y PDF con score de calidad</li>
-          <li><span class="fck"><i class="fas fa-check"></i></span>Autoaprendizaje de decisiones de mapeo de usuario</li>
-          <li><span class="fck"><i class="fas fa-check"></i></span>Normalización de direcciones vía API Callejero GCBA</li>
-          <li><span class="fck"><i class="fas fa-check"></i></span>Generación de scripts SQL para corrección en BD</li>
-        </ul>
-      </div>
-      <div class="card-foot">
-        <div class="tags"><span class="tag">Python +3.11</span><span class="tag">FastAPI</span><span class="tag">Pandas</span><span class="tag">Pydantic v2</span></div>
-        <a href="#arquitectura" class="clink">Stack <i class="fas fa-arrow-right" style="font-size:9px;"></i></a>
-      </div>
-    </div>
-
-    <!-- ANONIMIZADOR -->
-    <div class="card">
-      <div class="card-stripe s-teal"></div>
-      <div class="card-body">
-        <div class="card-top">
-          <div class="card-icon i-teal"><i class="fas fa-user-shield"></i></div>
-          <span class="pill">Producción</span>
-        </div>
-        <div class="card-title">Anonimizador de Datos</div>
-        <div class="card-sub">Protección de datos sensibles e identidad · 8 técnicas</div>
-        <p class="card-desc">Aplica técnicas de desidentificación programática sobre datasets para resguardo de datos personales. API REST + interfaz web HTML.</p>
-        <ul class="feats">
-          <li><span class="fck"><i class="fas fa-check"></i></span>Enmascaramiento y pseudonimización de campos</li>
-          <li><span class="fck"><i class="fas fa-check"></i></span>Hash anónimo y supresión de datos</li>
-          <li><span class="fck"><i class="fas fa-check"></i></span>Agrupamiento y generalización geográfica</li>
-          <li><span class="fck"><i class="fas fa-check"></i></span>Perturbación de valores numéricos</li>
-          <li><span class="fck"><i class="fas fa-check"></i></span>API REST + interfaz web HTML intuitiva</li>
-        </ul>
-      </div>
-      <div class="card-foot">
-        <div class="tags"><span class="tag">Python 3.11</span><span class="tag">Flask</span><span class="tag">Pandas</span><span class="tag">NumPy</span></div>
-      </div>
-    </div>
-
-    <!-- CLASIFICADOR -->
-    <div class="card">
-      <div class="card-stripe s-violeta"></div>
-      <div class="card-body">
-        <div class="card-top">
-          <div class="card-icon i-violeta"><i class="fas fa-folder-tree"></i></div>
-          <span class="pill">Producción</span>
-        </div>
-        <div class="card-title">Clasificador de Expedientes</div>
-        <div class="card-sub">IA documental · NLP + Visión computacional</div>
-        <p class="card-desc">Identifica el tipo de documento de un expediente electrónico mediante embeddings textuales y visuales. Devuelve porcentaje de similitud por categoría.</p>
-        <ul class="feats">
-          <li><span class="fck"><i class="fas fa-check"></i></span>97% de precisión (69/71 docs en pruebas)</li>
-          <li><span class="fck"><i class="fas fa-check"></i></span>Embeddings textuales: SentenceTransformers (mxbai-embed-large)</li>
-          <li><span class="fck"><i class="fas fa-check"></i></span>Embeddings visuales: CLIP ViT-H-14 (LAION-2B)</li>
-          <li><span class="fck"><i class="fas fa-check"></i></span>OCR: python-doctr (fast_base + crnn_vgg16_bn)</li>
-          <li><span class="fck"><i class="fas fa-check"></i></span>Pre-clasificador: generados vs adjuntos</li>
-        </ul>
-      </div>
-      <div class="card-foot">
-        <div class="tags"><span class="tag">Python +3.12</span><span class="tag">PyTorch</span><span class="tag">CLIP</span><span class="tag">SentenceTransformers</span></div>
-      </div>
-    </div>
-
-    <!-- COMPARADOR -->
-    <div class="card">
-      <div class="card-stripe s-naranja"></div>
-      <div class="card-body">
-        <div class="card-top">
-          <div class="card-icon i-naranja"><i class="fas fa-code-compare"></i></div>
-          <span class="pill">Producción</span>
-        </div>
-        <div class="card-title">Comparador de Documentos</div>
-        <div class="card-sub">Extracción y comparación de campos entre documentos</div>
-        <p class="card-desc">Extrae y compara datos de interés entre documentos estimando su porcentaje de coincidencia. Fuzzy matching tolerante a errores de tipeo y OCR.</p>
-        <ul class="feats">
-          <li><span class="fck"><i class="fas fa-check"></i></span>98% de precisión (31.5/32 docs en pruebas)</li>
-          <li><span class="fck"><i class="fas fa-check"></i></span>Fuzzy matching: RapidFuzz + SequenceMatcher</li>
-          <li><span class="fck"><i class="fas fa-check"></i></span>Normalización textual con unidecode y regex</li>
-          <li><span class="fck"><i class="fas fa-check"></i></span>Procesamiento de números en lenguaje natural</li>
-          <li><span class="fck"><i class="fas fa-check"></i></span>Comparación RPI vs generados y RPI vs adjuntos</li>
-        </ul>
-      </div>
-      <div class="card-foot">
-        <div class="tags"><span class="tag">Python +3.12</span><span class="tag">doctr OCR</span><span class="tag">RapidFuzz</span><span class="tag">pdf2image</span></div>
-      </div>
-    </div>
-
-    <!-- ANALIZADOR -->
-    <div class="card">
-      <div class="card-stripe s-rojo"></div>
-      <div class="card-body">
-        <div class="card-top">
-          <div class="card-icon i-rojo"><i class="fas fa-file-magnifying-glass"></i></div>
-          <span class="pill">Producción</span>
-        </div>
-        <div class="card-title">Analizador de Expedientes</div>
-        <div class="card-sub">Extracción de datos clave de expedientes SADE</div>
-        <p class="card-desc">Extrae automáticamente información específica de expedientes electrónicos. Detecta resultado del trámite, estado y campos clave. Conectado a servicios SADE.</p>
-        <ul class="feats">
-          <li><span class="fck"><i class="fas fa-check"></i></span>CU: Reservas de espacio de estacionamiento (144 expedientes)</li>
-          <li><span class="fck"><i class="fas fa-check"></i></span>CU: Consulta de usos (30 expedientes)</li>
-          <li><span class="fck"><i class="fas fa-check"></i></span>CU: Presentación sistema de autoprotección</li>
-          <li><span class="fck"><i class="fas fa-check"></i></span>Fallback zero-shot classification (roberta-large)</li>
-          <li><span class="fck"><i class="fas fa-check"></i></span>Integración con arquitectura de servicios SADE</li>
-        </ul>
-      </div>
-      <div class="card-foot">
-        <div class="tags"><span class="tag">Python</span><span class="tag">pdfplumber</span><span class="tag">Transformers</span><span class="tag">customtkinter</span></div>
-      </div>
-    </div>
-
+<!-- Pantalla: Productos -->
+<div id="screen-productos" class="screen active">
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow"><i class="fas fa-cubes" style="font-size:9px;"></i> Ecosistema de datos institucionales · GCBA</div>
+      <h1>Toolkit de Datos<br><em>Inteligente</em></h1>
+      <p class="hero-desc">
+        Herramientas de calidad, anonimización, clasificación, comparación y análisis de expedientes. Desarrolladas por GOAMV para la gobernanza efectiva de la información del GCBA.
+      </p>
+    </section>
   </div>
-</div>
 
-<!-- VALIDACIONES -->
-<div class="wrap sec" id="validaciones">
-  <div class="sec-label">Motor de validación · Validador v****</div>
-  <div class="sec-title">6 dimensiones de calidad ISO 8000</div>
-  <div class="val-grid">
-    <div class="val-card">
-      <div class="val-ic" style="background:#eff6ff; color:#1e3a8a;"><i class="fas fa-table-columns"></i></div>
-      <h5>Estructura</h5>
-      <p>Compara columnas del dataset vs el diccionario. Detecta faltantes, extras y nombres no estándar.</p>
-    </div>
-    <div class="val-card">
-      <div class="val-ic" style="background:#f0fdf4; color:#14532d;"><i class="fas fa-circle-dot"></i></div>
-      <h5>Completitud</h5>
-      <p>Calcula vacíos y nulos por columna. Columnas no mapeadas no penalizan el score general.</p>
-    </div>
-    <div class="val-card">
-      <div class="val-ic" style="background:#fffbeb; color:#78350f;"><i class="fas fa-spell-check"></i></div>
-      <h5>Formato</h5>
-      <p>Regex del diccionario: DNI, CUIT, fechas ISO 8601, email, código postal, patente, coordenadas.</p>
-    </div>
-    <div class="val-card">
-      <div class="val-ic" style="background:#f5f3ff; color:#3b0764;"><i class="fas fa-fingerprint"></i></div>
-      <h5>IDs únicos</h5>
-      <p>Detecta duplicados en campos identificadores. Reporta valores, frecuencia y filas afectadas.</p>
-    </div>
-    <div class="val-card">
-      <div class="val-ic" style="background:#fff1f2; color:#881337;"><i class="fas fa-list-check"></i></div>
-      <h5>Correctitud</h5>
-      <p>Valida contenido contra listas admitidas: barrios CABA, comunas, provincias, tipos de documento.</p>
-    </div>
-    <div class="val-card">
-      <div class="val-ic" style="background:#f0fdf4; color:#14532d;"><i class="fas fa-magnifying-glass-plus"></i></div>
-      <h5>No mapeadas</h5>
-      <p>Métricas independientes para campos sin correspondencia y sugerencias de revisión.</p>
+  <div class="wrap sec" id="productos">
+    <div class="sec-label">Catálogo de herramientas</div>
+    <div class="sec-title">Productos disponibles</div>
+    <div class="grid">
+      <!-- VALIDADOR (OPERATIVO) -->
+      <div class="card">
+        <div class="card-stripe s-azul"></div>
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-icon i-azul"><i class="fas fa-check-double"></i></div>
+            <span class="pill">Operativo</span>
+          </div>
+          <div class="card-title">Validador de Calidad de Datos</div>
+          <div class="card-sub">Motor de validación semántica y sintáctica · v1</div>
+          <p class="card-desc">Detecta, reporta y corrige errores estructurales en datasets CSV/XLS/XLSX. Alineado al Diccionario de Datos y Lineamientos de Gobernanza del GCBA. Valida estructura, completitud, formato, unicidad y correctitud con generación de informes HTML/PDF y scripts SQL.</p>
+        </div>
+      </div>
+
+      <!-- ANONIMIZADOR (NO OPERATIVO - GRIS) -->
+      <div class="card disabled">
+        <div class="card-stripe disabled-stripe"></div>
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-icon i-teal" style="background:#9ca3af;"><i class="fas fa-user-shield"></i></div>
+            <span class="pill pill-off">En desarrollo</span>
+          </div>
+          <div class="card-title">Anonimizador de Datos</div>
+          <div class="card-sub">Protección de datos sensibles e identidad · 8 técnicas</div>
+          <p class="card-desc">Aplica técnicas de desidentificación programática sobre datasets para resguardo de datos personales: enmascaramiento, pseudonimización, hash anónimo, supresión, agrupamiento geográfico y perturbación numérica. API REST + interfaz web.</p>
+        </div>
+      </div>
+
+      <!-- CLASIFICADOR (NO OPERATIVO) -->
+      <div class="card disabled">
+        <div class="card-stripe disabled-stripe"></div>
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-icon i-violeta" style="background:#9ca3af;"><i class="fas fa-folder-tree"></i></div>
+            <span class="pill pill-off">En desarrollo</span>
+          </div>
+          <div class="card-title">Clasificador de Expedientes</div>
+          <div class="card-sub">IA documental · NLP + Visión computacional</div>
+          <p class="card-desc">Identifica el tipo de documento de un expediente electrónico mediante embeddings textuales (SentenceTransformers) y visuales (CLIP ViT-H-14). 97% de precisión en pruebas. OCR integrado y pre-clasificador de adjuntos.</p>
+        </div>
+      </div>
+
+      <!-- COMPARADOR (NO OPERATIVO) -->
+      <div class="card disabled">
+        <div class="card-stripe disabled-stripe"></div>
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-icon i-naranja" style="background:#9ca3af;"><i class="fas fa-code-compare"></i></div>
+            <span class="pill pill-off">En desarrollo</span>
+          </div>
+          <div class="card-title">Comparador de Documentos</div>
+          <div class="card-sub">Extracción y comparación de campos entre documentos</div>
+          <p class="card-desc">Extrae y compara datos de interés entre documentos estimando porcentaje de coincidencia. Fuzzy matching con RapidFuzz + SequenceMatcher, normalización textual y procesamiento de números en lenguaje natural. Precisión del 98% en pruebas.</p>
+        </div>
+      </div>
+
+      <!-- ANALIZADOR (NO OPERATIVO) - ICONO CORREGIDO: ahora usa fa-magnifying-glass-chart, 100% compatible y visible -->
+      <div class="card disabled">
+        <div class="card-stripe disabled-stripe"></div>
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-icon i-rojo" style="background:#9ca3af;"><i class="fas fa-magnifying-glass-chart"></i></div>
+            <span class="pill pill-off">En desarrollo</span>
+          </div>
+          <div class="card-title">Analizador de Expedientes</div>
+          <div class="card-sub">Extracción de datos clave de expedientes SADE</div>
+          <p class="card-desc">Extrae automáticamente información específica de expedientes electrónicos. Detecta resultado del trámite, estado y campos clave. Casos de uso: reservas de espacio de estacionamiento, consulta de usos y presentación de autoprotección.</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- ARQUITECTURA -->
-<div class="wrap sec" id="arquitectura">
-  <div class="sec-label">Detalle técnico · Validador v****</div>
-  <div class="sec-title">Arquitectura del sistema</div>
-  <div class="arq-grid">
-    <div class="arq-card">
-      <h4><i class="fas fa-layer-group" style="color:var(--azul); font-size:12px;"></i> Capas del sistema</h4>
-      <div class="layer l1"><span style="font-size:13px;">🌐</span><div><strong>Frontend</strong><small style="color:#3b82f6;">HTML · JS · CSS — Interfaz web</small></div></div>
-      <div class="layer l2"><span style="font-size:13px;">⚡</span><div><strong>API REST</strong><small style="color:#16a34a;">FastAPI + Uvicorn (ASGI) · Pydantic v2</small></div></div>
-      <div class="layer l3"><span style="font-size:13px;">🧠</span><div><strong>Motor de validación</strong><small style="color:#7c3aed;">Módulos especializados · app_web.py</small></div></div>
-      <div class="layer l4"><span style="font-size:13px;">📂</span><div><strong>Procesamiento de datos</strong><small style="color:#d97706;">Pandas · NumPy · OpenPyXL · chardet</small></div></div>
-      <div class="layer l5"><span style="font-size:13px;">📤</span><div><strong>Salidas</strong><small style="color:#e11d48;">CSV/XLSX · PDF · HTML · Script SQL</small></div></div>
+<!-- Pantalla: Lineamientos de Calidad de Datos (9 dimensiones ISO/GCBA) -->
+<div id="screen-lineamientos" class="screen">
+  <div class="wrap">
+    <section class="hero" style="padding-bottom: 20px;">
+      <div class="eyebrow"><i class="fas fa-chart-line"></i> Gobierno de Datos · GCBA</div>
+      <h1>Lineamientos de <em>Calidad de Datos</em></h1>
+      <p class="hero-desc">Dimensiones basadas en la Guía de Calidad de Datos del GCBA. Estandarización, evaluación y mejora continua de activos de información.</p>
+    </section>
+  </div>
+  <div class="wrap sec">
+    <div class="sec-label">Marco de referencia</div>
+    <div class="sec-title">9 dimensiones para datos de calidad</div>
+    <div class="dim-grid">
+      <!-- 1 Relevancia -->
+      <div class="dim-card"><div class="dim-header"><span class="dim-num">1</span><h3>Relevancia</h3></div><p>Los datos relevantes son aquellos que realmente importan según necesidades específicas de los usuarios. Se evalúa qué atributos son útiles para análisis, toma de decisiones o cumplimiento de objetivos.</p></div>
+      <!-- 2 Completitud -->
+      <div class="dim-card"><div class="dim-header"><span class="dim-num">2</span><h3>Completitud</h3></div><p>Evalúa que los datos no sean nulos en atributos críticos según reglas de negocio. Aplica solo sobre atributos relevantes que requieren estar completos.</p></div>
+      <!-- 3 Exactitud -->
+      <div class="dim-card"><div class="dim-header"><span class="dim-num">3</span><h3>Exactitud</h3></div><p>Adecuación del tipo de dato esperado para un atributo. Corrobora que fechas sean fechas, numéricos sean numéricos y conversión posible de strings al tipo correcto.</p></div>
+      <!-- 4 Unicidad -->
+      <div class="dim-card"><div class="dim-header"><span class="dim-num">4</span><h3>Unicidad</h3></div><p>Presencia de duplicados. Claves primarias únicas y atributos que según reglas de negocio deben ser únicos (ej. países, identificadores).</p></div>
+      <!-- 5 Validez -->
+      <div class="dim-card"><div class="dim-header"><span class="dim-num">5</span><h3>Validez</h3></div><p>Autenticidad y confiabilidad de los registros contrastando con fuentes externas validadoras (RENAPER, SINTyS, etc).</p></div>
+      <!-- 6 Homogeneidad -->
+      <div class="dim-card"><div class="dim-header"><span class="dim-num">6</span><h3>Homogeneidad</h3></div><p>Datos uniformemente clasificados según categorías predefinidas en la guía de datos. Evita variaciones inconsistentes (ej. "LUN" vs "lunes").</p></div>
+      <!-- 7 Correctitud -->
+      <div class="dim-card"><div class="dim-header"><span class="dim-num">7</span><h3>Correctitud</h3></div><p>Condiciones tipográficas, formato o lógicas para atributos alfanuméricos y numéricos. No acepta números en nombres ni símbolos especiales.</p></div>
+      <!-- 8 Coherencia -->
+      <div class="dim-card"><div class="dim-header"><span class="dim-num">8</span><h3>Coherencia</h3></div><p>Respeto de lógica interna entre campos o tablas. Ej: edad máxima coherente, fechas de modificación posteriores a registro.</p></div>
+      <!-- 9 Conformidad -->
+      <div class="dim-card"><div class="dim-header"><span class="dim-num">9</span><h3>Conformidad</h3></div><p>Los datos y la metadata se ajustan al Diccionario de Datos y Metadatos del Gobierno de la Ciudad de Buenos Aires (Anexo I de la guía). Respuesta dicotómica: SÍ / NO.</p></div>
     </div>
-    <div class="arq-card">
-      <h4><i class="fas fa-code-branch" style="color:#0d9488; font-size:12px;"></i> Dependencias principales</h4>
-      <table class="dtbl">
-        <thead><tr><th>Librería</th><th>Versión</th><th>Uso</th></tr></thead>
-        <tbody>
-          <tr><td>FastAPI</td><td><span class="ver">≥0.104.0</span></td><td>Framework API REST</td></tr>
-          <tr><td>Uvicorn</td><td><span class="ver">≥0.24.0</span></td><td>Servidor ASGI</td></tr>
-          <tr><td>Pandas</td><td><span class="ver">≥2.0.0</span></td><td>Análisis de datos</td></tr>
-          <tr><td>NumPy</td><td><span class="ver">≥1.24.0</span></td><td>Cálculos numéricos</td></tr>
-          <tr><td>OpenPyXL</td><td><span class="ver">≥3.1.0</span></td><td>Excel</td></tr>
-          <tr><td>Pydantic</td><td><span class="ver">≥2.0.0</span></td><td>Validación de datos</td></tr>
-          <tr><td>Pdfkit</td><td><span class="ver">≥1.0.0</span></td><td>Generación PDF</td></tr>
-          <tr><td>RapidFuzz</td><td><span class="ver">latest</span></td><td>Fuzzy matching</td></tr>
-        </tbody>
-      </table>
+    <div style="margin-top: 28px; background: #eef2ff; padding: 16px 20px; border-radius: 20px; border-left: 5px solid var(--azul);">
+      <p style="font-size: 13px; color: #1e3a5f;"><strong>📘 Enfoque integrado:</strong> Las dimensiones se aplican secuencialmente: Relevancia → Completitud → Exactitud → Unicidad → Validez → Homogeneidad → Correctitud → Coherencia → Conformidad. Cada etapa construye sobre la anterior para garantizar datos confiables y alineados con los <a href="https://buenosaires.gob.ar/gcaba_historico/innovacionytransformaciondigital/lineamientos-para-la-gobernanza-de-datos" target="_blank" rel="noopener noreferrer">lineamientos GCBA</a>.</p>
     </div>
+  </div>
+</div>
+
+<!-- Pantalla: Diccionario de Datos (placeholder para contenido futuro) -->
+<div id="screen-diccionario" class="screen">
+  <div class="wrap">
+    <section class="hero" style="padding-bottom: 30px;">
+      <div class="eyebrow"><i class="fas fa-book-open"></i> Estándar de datos · GCBA</div>
+      <h1>Diccionario de <em>Datos</em></h1>
+      <p class="hero-desc">Próximamente: catálogo completo de entidades, atributos, tipos de datos, dominios y reglas de negocio alineados al Anexo I de la Guía de Calidad de Datos.</p>
+      <div style="background: white; border-radius: 20px; padding: 32px; text-align: center; border: 1px solid var(--border); margin-top: 20px;">
+        <i class="fas fa-database" style="font-size: 48px; color: var(--azul); opacity: 0.6; margin-bottom: 16px; display: block;"></i>
+        <h3 style="font-family: 'Fraunces'; font-size: 1.3rem;">Estructura en construcción</h3>
+        <p style="color: var(--muted); max-width: 400px; margin: 12px auto 0;">Aquí se listarán las tablas base, columnas estandarizadas, formatos (ISO, regex) y dependencias semánticas definidas por el GCBA.</p>
+        <div style="margin-top: 24px;"><span class="pill" style="background: #e0e7ff;">Próxima actualización · Q2 2026</span></div>
+        
+        <!-- Botón para sugerir datos al diccionario -->
+        <div style="margin-top: 32px;">
+          <button id="btn-sugerir-dato" style="background: var(--azul); color: white; border: none; padding: 12px 28px; border-radius: 40px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: all 0.2s ease; box-shadow: 0 2px 6px rgba(0,0,0,0.1);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 6px rgba(0,0,0,0.1)';">
+            <i class="fas fa-pen-alt"></i> Sugerir estándar o campo faltante
+          </button>
+          <p style="font-size: 12px; color: var(--muted); margin-top: 12px;">¿Falta un estándar específico? Ayudanos a priorizar el desarrollo del diccionario.</p>
+        </div>
+      </div>
+    </section>
   </div>
 </div>
 
 <footer>
   <div class="foot-inner">
     <p><strong>GOAMV</strong> · Gerencia Operativa de Análisis, Modelado y Visualización de Datos<br>Subsecretaría de Innovación Administrativa · DGGDA · GCBA</p>
-    <p>Toolkit de Datos · v1</p>
   </div>
 </footer>
 
+<!-- Script simple para el placeholder del botón (reemplazar cuando el form esté listo) -->
 <script>
-const cat = {
-  validador: { tags:['validar','calidad','dataset','csv','xlsx','badata','error','columna','diccionario','formato','duplicado','nulo','vacio','sql','score'], resp:'El <strong>Validador de Calidad de Datos (v1.6)</strong> es lo que necesitás. Valida estructura, completitud, formato, IDs únicos y correctitud contra el diccionario institucional del GCBA. Genera dataset corregido, informe HTML/PDF y script SQL.' },
-  anonimizador: { tags:['anonimizar','anonimizacion','sensible','privacidad','proteger','personal','enmascarar','pseudon','hash'], resp:'El <strong>Anonimizador</strong> está en producción con 8 técnicas: enmascaramiento, pseudonimización, hash anónimo, supresión, agrupamiento, generalización geográfica y perturbación. Disponible vía API Flask e interfaz web HTML.' },
-  clasificador: { tags:['clasificar','expediente','tipo','documento','categoriz','nlp','abl','escritura','rpi','contrato','formulario','adjunto'], resp:'El <strong>Clasificador de Expedientes</strong> usa embeddings textuales y visuales (CLIP ViT-H-14) para identificar tipos de documentos con 97% de precisión. Cubre ABL, contratos, escrituras, formulario ARCA 931 y RPI.' },
-  comparador: { tags:['comparar','comparacion','coincidencia','diferencia','campo','propietario','extraer','rpi','similitud','plano'], resp:'El <strong>Comparador de Documentos</strong> extrae campos clave y calcula su % de coincidencia con OCR ML + RapidFuzz. 98% de precisión en pruebas. Compara RPI vs documentos generados y adjuntos.' },
-  analizador: { tags:['analizar','analizador','sade','tramite','transito','reserva','estacionamiento','autoproteccion','resultado','estado'], resp:'El <strong>Analizador de Expedientes</strong> extrae información de expedientes SADE y detecta resultado y estado del trámite. Casos de uso activos: reservas de tránsito, consulta de usos y autoprotección.' }
-};
+  document.getElementById('btn-sugerir-dato')?.addEventListener('click', function() {
+    alert('🔔 Formulario de sugerencias en construcción. Próximamente podrás indicar qué estándar o campo te gustaría ver en el diccionario.');
+    // Aquí luego se reemplaza con: window.location.href = '/forms/sugerir-dato' o abrir modal
+  });
+</script>
 
-function norm(t){ return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+<script>
+  // Navegación entre pantallas (productos, lineamientos, diccionario)
+  const screens = {
+    productos: document.getElementById('screen-productos'),
+    lineamientos: document.getElementById('screen-lineamientos'),
+    diccionario: document.getElementById('screen-diccionario')
+  };
 
-function recomendar(texto){
-  const q = norm(texto);
-  let best=null, top=0;
-  for(const [,s] of Object.entries(cat)){
-    let sc=0; for(const t of s.tags) if(q.includes(norm(t))) sc++;
-    if(sc>top){top=sc; best=s;}
+  function activateScreen(screenId) {
+    Object.keys(screens).forEach(id => {
+      screens[id].classList.remove('active');
+    });
+    if (screens[screenId]) screens[screenId].classList.add('active');
+    // Actualizar clase activa en navegación
+    document.querySelectorAll('.nav-tab').forEach(link => {
+      const tabScreen = link.getAttribute('data-screen');
+      if (tabScreen === screenId) link.classList.add('active');
+      else link.classList.remove('active');
+    });
+    // Scroll suave al inicio
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-  if(!best) return 'Podría interesarte alguno de estos productos:<br><br>• <strong>Validar datos</strong> → Validador de Calidad<br>• <strong>Proteger datos personales</strong> → Anonimizador<br>• <strong>Identificar tipo de documento</strong> → Clasificador<br>• <strong>Comparar campos entre documentos</strong> → Comparador<br>• <strong>Extraer datos de expedientes SADE</strong> → Analizador<br><br>Contame más sobre tu caso de uso.';
-  return best.resp;
-}
 
-function addMsg(text, isUser){
-  const area=document.getElementById('chatArea');
-  const d=document.createElement('div'); d.className=isUser?'mu':'mi';
-  const b=document.createElement('div'); b.className='b'; b.innerHTML=text;
-  d.appendChild(b); area.appendChild(d); area.scrollTop=area.scrollHeight;
-}
+  document.querySelectorAll('.nav-tab').forEach(tab => {
+    tab.addEventListener('click', (e) => {
+      e.preventDefault();
+      const screenId = tab.getAttribute('data-screen');
+      if (screenId) activateScreen(screenId);
+    });
+  });
 
-function send(){
-  const inp=document.getElementById('chatInput');
-  const t=inp.value.trim(); if(!t) return;
-  addMsg(t,true); inp.value='';
-  setTimeout(()=>addMsg(recomendar(t),false),300);
-}
+  // home link (logo) lleva a pantalla productos
+  document.getElementById('homeLinkNav')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    activateScreen('productos');
+  });
 
-document.getElementById('chatSend').addEventListener('click',send);
-document.getElementById('chatInput').addEventListener('keypress',e=>{ if(e.key==='Enter') send(); });
+  // Si por defecto mostramos productos, aseguramos clase activa en el primer tab
+  document.querySelector('.nav-tab[data-screen="productos"]')?.classList.add('active');
 </script>
 </body>
 </html>
